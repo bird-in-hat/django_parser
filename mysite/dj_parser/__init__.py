@@ -1,0 +1,1 @@
+default_app_config = 'dj_parser.apps.DjParserConfig'

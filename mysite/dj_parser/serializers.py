@@ -10,10 +10,13 @@ class PageSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Page
-        fields = (     
+        fields = (  
+            'pk',   
+            'page_url',
             'h1',
             'h2',
             'h3',
+            'a',
             'urls',
             )
 

@@ -15,10 +15,6 @@ class Page(models.Model):
     def __str__(self):
         return self.page_url
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        to_celery()
-
 
 class Link(models.Model):
     page = models.ForeignKey(Page, related_name='urls', on_delete=models.CASCADE)

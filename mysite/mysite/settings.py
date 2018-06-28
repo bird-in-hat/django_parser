@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'dj_parser.apps.DjParserConfig',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+CELERY_ACKS_LATE = True
+CELERYD_PREFETCH_MULTIPLIER = 1
+CELERYD_CONCURRENCY = 1
+
+#celery -A mysite worker --pool=eventlet -l info -Ofair
+#celery -A mysite purge -f

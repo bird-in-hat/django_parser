@@ -20,7 +20,8 @@ def tags_list(request):
         serializer = PageSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            print(serializer.data)
+            return Response({ 'id' : Page.objects.all().last() }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -31,7 +32,7 @@ def tags_detail(request, pk):
     """
     try:
         page = Page.objects.get(pk=pk)
-    except page.DoesNotExist:
+    except Page.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
