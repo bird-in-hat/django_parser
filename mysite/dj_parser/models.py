@@ -4,7 +4,7 @@ from django.db import models
 
 class Page(models.Model):
 
-    page_url     = models.CharField(max_length=400, default='')
+    page_url     = models.URLField(max_length=400, default='')
     result_ready = models.BooleanField(default=False)
 
     h1 = models.IntegerField(default=0)
@@ -18,7 +18,7 @@ class Page(models.Model):
 
 class Link(models.Model):
     page = models.ForeignKey(Page, related_name='urls', on_delete=models.CASCADE)
-    url = models.CharField(max_length=400, default='')
+    url = models.URLField(max_length=400, default='')
 
     def __str__(self):
         return self.url

@@ -10,12 +10,11 @@ import urllib.request
 
 def get_tags(page):
     html_doc = urllib.request.urlopen(page.page_url).read()
-    soup = BeautifulSoup(html_doc)
+    soup = BeautifulSoup(html_doc, "html.parser")
     
     for link in soup.findAll('a'):
-        print(link)
-        page.a = page.a + 1 # optimize? findAll counld be generator -> inc better then new generator
-        page.urls.create(url=link.get('href'))
+        page.a = 1 + page.a # optimize? findAll counld be generator -> inc better then new generator
+        page.urls.create(url=link.get('href')) # optimize? all creates it one
 
     page.h1 = len(soup.findAll('h1'))
     page.h2 = len(soup.findAll('h2'))

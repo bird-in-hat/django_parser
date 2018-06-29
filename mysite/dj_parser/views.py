@@ -18,10 +18,11 @@ def tags_list(request):
     """
     if request.method == 'POST':
         serializer = PageSerializer(data=request.data)
+        print(str(request.data))
         if serializer.is_valid():
             serializer.save()
             print(serializer.data)
-            return Response({ 'id' : Page.objects.all().last() }, status=status.HTTP_201_CREATED)
+            return Response({ 'id' : Page.objects.all().last().pk }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
