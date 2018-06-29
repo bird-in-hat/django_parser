@@ -13,6 +13,7 @@ greenlet==0.4.13
 httpie==0.9.9
 idna==2.7
 kombu==4.2.1
+psycopg2==2.7.5
 Pygments==2.2.0
 pytz==2018.4
 requests==2.19.1
