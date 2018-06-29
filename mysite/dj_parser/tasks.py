@@ -18,7 +18,7 @@ def get_tags(page):
 
     page.h1 = len(soup.findAll('h1'))
     page.h2 = len(soup.findAll('h2'))
-    page.h3 = len(soup.findAll('h3'))
+    page.h3 = len(soup.findAll('h3'))  
 
     return page
 
@@ -27,9 +27,11 @@ def get_tags(page):
 def parse_page(page_id):
     page = Page.objects.get(pk=page_id)
     try:
-        result = get_tags(page)
-        print(page_id, result)
-        result.save()
+        page = get_tags(page) 
+        page.result_ready = True 
     except SoftTimeLimitExceeded:
         page.result_ready = False
+
+    page.save()
+
         #? set special field for code HTTP_500_INTERNAL_SERVER_ERROR

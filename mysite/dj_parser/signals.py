@@ -7,6 +7,5 @@ from dj_parser.tasks import parse_page
 
 @receiver(post_save, sender=Page)
 def parse_in_celery(sender, instance, created, **kwargs):
-    print("instance: ", instance)
     if created:
         parse_page.delay(instance.id)

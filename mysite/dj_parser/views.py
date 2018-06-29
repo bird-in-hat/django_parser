@@ -18,10 +18,8 @@ def tags_list(request):
     """
     if request.method == 'POST':
         serializer = PageSerializer(data=request.data)
-        print(str(request.data))
         if serializer.is_valid():
             serializer.save()
-            print(serializer.data)
             return Response({ 'id' : Page.objects.all().last().pk }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -34,7 +32,8 @@ def tags_detail(request, pk):
     try:
         page = Page.objects.get(pk=pk)
     except Page.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        error = {'message': 'Can not create task'}
+        return Response(data=error, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = PageSerializer(page, context={'request': request})
@@ -42,4 +41,5 @@ def tags_detail(request, pk):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             error = {'message': 'Page is being parsing'}
-            Response(error, status=status.HTTP_417_EXPECTATION_FAILED) #??
+            return Response(data=error, status=status.HTTP_417_EXPECTATION_FAILED) #??
+
