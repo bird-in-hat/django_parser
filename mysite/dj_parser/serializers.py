@@ -10,6 +10,13 @@ class PageSerializer(serializers.HyperlinkedModelSerializer):
         slug_field='url')
     page_url = serializers.URLField(max_length=400, write_only=True)
 
+    def validate_page_url(self, page_url):
+        try:
+            urllib.request.urlopen(page_url)
+        except urllib.error.URLError:
+            raise serializers.ValidationError('DNS address could not be found')
+        return page_url
+
     class Meta:
         model = Page
         fields = (
@@ -26,6 +33,8 @@ class PageSerializer(serializers.HyperlinkedModelSerializer):
             'h3',
             'a',
             )
+
+    
 
 
 class LinkSerializer(serializers.HyperlinkedModelSerializer):
