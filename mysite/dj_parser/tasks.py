@@ -31,7 +31,8 @@ def parse_page(page_id):
         page.result_ready = True 
     except SoftTimeLimitExceeded:
         page.result_ready = False
+        #? set special field for code HTTP_500_INTERNAL_SERVER_ERROR
 
     page.save()
 
-        #? set special field for code HTTP_500_INTERNAL_SERVER_ERROR
+        

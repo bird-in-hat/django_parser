@@ -7,8 +7,12 @@ class PageSerializer(serializers.HyperlinkedModelSerializer):
     urls = serializers.SlugRelatedField(
         many=True,
         read_only=True,
-        slug_field='url')
-    page_url = serializers.URLField(max_length=400, write_only=True)
+        slug_field='url',
+        )
+    page_url = serializers.URLField(
+        max_length=400,
+        write_only=True
+        )
 
     def validate_page_url(self, page_url):
         try:
@@ -20,6 +24,7 @@ class PageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Page
         fields = (
+            'pk',
             'page_url',
             'h1',
             'h2',
@@ -33,8 +38,6 @@ class PageSerializer(serializers.HyperlinkedModelSerializer):
             'h3',
             'a',
             )
-
-    
 
 
 class LinkSerializer(serializers.HyperlinkedModelSerializer):
